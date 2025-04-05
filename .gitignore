@@ -3,11 +3,13 @@
 # dependencies
 node_modules/
 
-# Expo
+#
 .expo/
 dist/
 web-build/
 expo-env.d.ts
+.vscode
+.gitignore
 
 # Native
 *.orig.*
@@ -16,9 +18,6 @@ expo-env.d.ts
 *.p12
 *.key
 *.mobileprovision
-
-# Metro
-.metro-health-check*
 
 # debug
 npm-debug.*
@@ -30,7 +29,7 @@ yarn-error.*
 *.pem
 
 # local env files
-.env*.local
+.env*
 
 # typescript
 *.tsbuildinfo

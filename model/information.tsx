@@ -1,10 +1,18 @@
 export const starDescriptions = [
-    { stars: 1, text: "Kurang Memuaskan", description: "Program ini tidak memenuhi jangkaan dalam banyak aspek. Kelemahan serius dalam:\n(i) Jaringan Industri\n(ii) Pembangunan dan Penyampaian Program\n(iii) Kualiti Tenaga Pengajar dan Sumber TVET\n(iv) Akreditasi dan Pengiktirafan\n(v) Kebolehpasaran Graduan \nyang memerlukan penambahbaikan yang besar untuk meningkatkan kualiti keseluruhan program" },
-    { stars: 2, text: "Memuaskan", description: "Program ini memenuhi keperluan asas tetapi mempunyai beberapa kelemahan yang ketara yang menjejaskan kualiti program keseluruhan. Penambahbaikan penting diperlukan dalam beberapa bidang." },
-    { stars: 3, text: "Baik", description: "Program ini memenuhi standard yang ditetapkan, tetapi terdapat beberapa aspek penting yang memerlukan penambahbaikan untuk mencapai tahap kecemerlangan yang lebih tinggi." },
-    { stars: 4, text: "Sangat Baik", description: "Program ini sangat baik dalam kebanyakan aspek tetapi mungkin mempunyai beberapa bidang kecil yang memerlukan penambahbaikan. Keseluruhannya, ia merupakan program yang kualitinya hampir sempurna." },
-    { stars: 5, text: "Cemerlang", description: "Program ini mencapai kecemerlangan dalam semua aspek, termasuk:\n(i) Jaringan Industri\n(ii) Pembangunan dan Penyampaian Program\n(iii) Kualiti Tenaga Pengajar dan Sumber TVET\n(iv) Akreditasi dan Pengiktirafan dan\nKebolehpasaran Graduan. Tiada aspek yang perlu diperbaiki." }
+    { stars: 1, text: "Less Satisfaction", description: "star1_desc" },
+    { stars: 2, text: "Satisfaction", description: "star2_desc" },
+    { stars: 3, text: "Good", description: "star3_desc" },
+    { stars: 4, text: "Very Good", description: "star4_desc" },
+    { stars: 5, text: "Excellent", description: "star5_desc" }
 ];
+
+// StarDescriptionsMs = [
+//     { stars: 1, text: "Kurang Memuaskan", description: "Program ini tidak memenuhi jangkaan dalam banyak aspek. Kelemahan serius dalam:\n(i) Jaringan Industri\n(ii) Pembangunan dan Penyampaian Program\n(iii) Kualiti Tenaga Pengajar dan Sumber TVET\n(iv) Akreditasi dan Pengiktirafan\n(v) Kebolehpasaran Graduan \nyang memerlukan penambahbaikan yang besar untuk meningkatkan kualiti keseluruhan program" },
+//     { stars: 2, text: "Memuaskan", description: "Program ini memenuhi keperluan asas tetapi mempunyai beberapa kelemahan yang ketara yang menjejaskan kualiti program keseluruhan. Penambahbaikan penting diperlukan dalam beberapa bidang." },
+//     { stars: 3, text: "Baik", description: "Program ini memenuhi standard yang ditetapkan, tetapi terdapat beberapa aspek penting yang memerlukan penambahbaikan untuk mencapai tahap kecemerlangan yang lebih tinggi." },
+//     { stars: 4, text: "Sangat Baik", description: "Program ini sangat baik dalam kebanyakan aspek tetapi mungkin mempunyai beberapa bidang kecil yang memerlukan penambahbaikan. Keseluruhannya, ia merupakan program yang kualitinya hampir sempurna." },
+//     { stars: 5, text: "Cemerlang", description: "Program ini mencapai kecemerlangan dalam semua aspek, termasuk:\n(i) Jaringan Industri\n(ii) Pembangunan dan Penyampaian Program\n(iii) Kualiti Tenaga Pengajar dan Sumber TVET\n(iv) Akreditasi dan Pengiktirafan dan\nKebolehpasaran Graduan. Tiada aspek yang perlu diperbaiki." }
+// ];
 
 export const tableCIPP = [
     { component: "Konteks", score: "x/12", percentage: "x/12 x 100" },

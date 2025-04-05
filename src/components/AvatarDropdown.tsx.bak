@@ -1,0 +1,90 @@
+// import { account } from '@/lib/appwrite';
+// import { useUser } from '@/lib/contexts/UserContext';
+import { useWindowDimensionsContext } from '../lib/contexts/WindowDimensionContext';
+import { useUser, useClerk } from '@clerk/clerk-react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import {
+  ArrowRightEndOnRectangleIcon,
+  Cog6ToothIcon,
+} from '@heroicons/react/24/solid'
+import { useCallback } from 'react';
+// import { useNavigate } from 'react-router-dom';
+
+const AvatarDropdown = ({ avatar = null }: { avatar?: React.ReactNode | null}) => {
+  // const { user, loading } = useUser(); // ✅ Get user from context
+  const { user, isLoaded } = useUser(); // ✅ Get user from context
+  const { signOut } = useClerk();
+  // const navigate = useNavigate(); // ✅ Use `useNavigate()` instead of `useRouter()`
+  const { isMobile } = useWindowDimensionsContext();
+
+  // const handleLogout = useCallback(async () => {
+  //   try {
+  //     await account.deleteSession("current"); // ✅ Log out from Appwrite
+  //     navigate("/auth/login"); // ✅ Redirect to login page
+  //   } catch (error) {
+  //     console.error("Appwrite logout error:", error);
+  //   }
+  const handleLogout = useCallback(async () => {
+    try {
+      // ✅ Log out from clerk
+      await signOut();
+      // navigate("/auth/login"); // ✅ Redirect to login page
+      window.location.href = "/auth/login";
+    } catch (error) {
+      console.error("Clerk logout error:", error);
+    }
+  }, [signOut]);
+
+  // ✅ Generate initials from the user's name
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase()
+      .substring(0, 2); // Limit to 2 characters
+  };
+
+  //appwrite
+  // const userName = loading ? "Loading..." : user?.name || "Unknown User";
+  //clerk
+  const userName = !isLoaded ? "Loading..." : user?.fullName || "Unknown User";
+
+  return (
+    <div className={"relative"}>
+      <Menu>
+        <MenuButton className={`inline-flex items-center gap-2 rounded-full bg-blue-600 dark:bg-darkBgAvatar py-2 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/50 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white ${isMobile ? "" : ""}`}>
+          {/* Profile Icon / Initials */}
+          {avatar ? (
+            <span className="text-lg text-white">{avatar}</span>
+          ) : (
+            <span className="text-lg text-white font-bold">{getInitials(userName)}</span>
+          )}
+        </MenuButton>
+
+        <MenuItems
+          transition
+          anchor="bottom end"
+          className="w-52 origin-top-right rounded-xl border border-white/5 bg-white dark:bg-gray-800 p-1 text-sm/6 text=black transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 z-50"
+        >
+          <MenuItem>
+            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+              <Cog6ToothIcon className="size-4" />
+              Settings
+              <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘E</kbd>
+            </button>
+          </MenuItem>
+          <MenuItem>
+            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10" onClick={handleLogout}>
+              <ArrowRightEndOnRectangleIcon className="size-4" />
+              Log Out
+              <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘Q</kbd>
+            </button>
+          </MenuItem>
+        </MenuItems>
+      </Menu>
+    </div>
+  )
+}
+
+export default AvatarDropdown
