@@ -8,10 +8,14 @@ import compression from "vite-plugin-compression";
 
 // https://vite.dev/config/
 export default defineConfig({
-  esbuild:{
+  esbuild: {
     loader: 'jsx' // or 'tsx' if you are using typescript
   },
-  plugins: [react(), tailwindcss(), compression()],
+  plugins: [
+    react(), tailwindcss(),
+    compression({ algorithm: 'gzip' }),
+    compression({ algorithm: 'brotliCompress', ext: '.br', })
+  ],
   assetsInclude: ["**/*.html"],
   resolve: {
     alias: {
@@ -19,9 +23,24 @@ export default defineConfig({
     },
   },
   build: {
-    minify: 'esbuild',  // Ensure minification
-    rollupOptions: {
-      treeshake: true,  // Force tree shaking
-    }
-  }
+    // minify: 'esbuild',  // Ensure minification
+    // rollupOptions: {
+    //   treeshake: true,  // Force tree shaking
+    // }
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+      format: {
+        comments: false,
+      },
+    },
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001',
+    },
+  },
 })

@@ -11,141 +11,140 @@ export interface Programme {
 export const programmes: Programme[] = [
     {
         id: "BGM",
-        name: "Bachelor of Vocational Education (General Machining) with Honours",
-        shortName: "Vocational General Machining",
+        name: "Sarjana Muda Pendidikan Vokasional (Pemesinan Am) dengan Kepujian",
+        shortName: "Pendidikan Vokasional Pemesinan Am",
         faculty: "FPTV",
     },
     {
         id: "BBC",
-        name: "Bachelor of Vocational Education (Building Construction) with Honours",
-        shortName: "Vocational Building Construction",
+        name: "Sarjana Muda Pendidikan Vokasional (Pembinaan Bangunan) dengan Kepujian",
+        shortName: "Pendidikan Vokasional Pembinaan Bangunan",
         faculty: "FPTV",
     },
     {
         id: "BVC",
-        name: "Bachelor of Vocational Education (Catering) with Honours",
-        shortName: "Vocational Catering",
+        name: "Sarjana Muda Pendidikan Vokasional (Katering) dengan Kepujian",
+        shortName: "Pendidikan Vokasional Katering",
         faculty: "FPTV",
     },
     {
         id: "BWM",
-        name: "Bachelor of Vocational Education (Welding and Metal Fabrication) with Honours",
-        shortName: "Vocational Welding and Metal Fabrication",
+        name: "Sarjana Muda Pendidikan Vokasional (Kimpalan dan Fabrikasi Logam) dengan Kepujian",
+        shortName: "Pendidikan Vokasional Kimpalan dan Fabrikasi Logam",
         faculty: "FPTV",
     },
     {
         id: "BEE",
-        name: "Bachelor of Vocational Education (Electrical and Electronic) with Honours",
-        shortName: "Vocational Electrical and Electronic",
+        name: "Sarjana Muda Pendidikan Vokasional (Elektrik dan Elektronik) dengan Kepujian",
+        shortName: "Pendidikan Vokasional Elektrik dan Elektronik",
         faculty: "FPTV",
     },
     {
         id: "BCM",
-        name: "Bachelor of Vocational Education (Creative Multimedia) with Honours",
-        shortName: "Vocational Creative Multimedia",
+        name: "Sarjana Muda Pendidikan Vokasional (Multimedia Kreatif) dengan Kepujian",
+        shortName: "Pendidikan Vokasional Multimedia Kreatif",
         faculty: "FPTV",
     },
     {
         id: "BRAC",
-        name: "Bachelor of Vocational Education (Refrigeration and Air Conditioning) with Honours",
-        shortName: "Vocational Refrigeration and Air Conditioning",
+        name: "Sarjana Muda Pendidikan Vokasional (Penyejukan dan Penyamanan Udara) dengan Kepujian",
+        shortName: "Pendidikan Vokasional Penyejukan dan Penyamanan Udara",
         faculty: "FPTV",
     },
-
     {
         id: "BFST",
-        name: "Bachelor in Food Service Technology with Honours",
-        shortName: "Food Service Technology",
+        name: "Sarjana Muda Teknologi Perkhidmatan Makanan dengan Kepujian",
+        shortName: "Teknologi Perkhidmatan Makanan",
         faculty: "FPTV",
     },
     {
         id: "BTBC",
-        name: "Bachelor of Technology in Building Construction with Honours",
-        shortName: "Technology Building Construction",
+        name: "Sarjana Muda Teknologi dalam Pembinaan Bangunan dengan Kepujian",
+        shortName: "Teknologi Pembinaan Bangunan",
         faculty: "FPTV",
     },
     {
         id: "BTRA",
-        name: "Bachelor of Technology in Refrigeration and Air Conditioning with Honours",
-        shortName: "Technology Refrigeration and Air Conditioning",
+        name: "Sarjana Muda Teknologi dalam Penyejukan dan Penyamanan Udara dengan Kepujian",
+        shortName: "Teknologi Penyejukan dan Penyamanan Udara",
         faculty: "FPTV",
     },
     {
         id: "BTIA",
-        name: "Bachelor of Technology in Industrial Electronic Automation with Honours",
-        shortName: "Technology Industrial Electronic Automation",
+        name: "Sarjana Muda Teknologi dalam Automasi Elektronik Industri dengan Kepujian",
+        shortName: "Teknologi Automasi Elektronik Industri",
         faculty: "FPTV",
     },
     {
         id: "BTEM",
-        name: "Bachelor of Technology in Electrical Maintenance System with Honours",
-        shortName: "Technology Electrical Maintenance System",
+        name: "Sarjana Muda Teknologi dalam Sistem Penyelenggaraan Elektrik dengan Kepujian",
+        shortName: "Teknologi Sistem Penyelenggaraan Elektrik",
         faculty: "FPTV",
     },
-        {
+    {
         id: "BTWD",
-        name: "Bachelor of Technology in Welding with Honours",
-        shortName: "Technology Welding",
+        name: "Sarjana Muda Teknologi dalam Kimpalan dengan Kepujian",
+        shortName: "Teknologi Kimpalan",
         faculty: "FPTV",
     },
     {
         id: "BTIM",
-        name: "Bachelor of Technology in Industrial Machining with Honours",
-        shortName: "Technology Industrial Machining",
+        name: "Sarjana Muda Teknologi dalam Pemesinan Industri dengan Kepujian",
+        shortName: "Teknologi Pemesinan Industri",
         faculty: "FPTV",
     },
     {
         id: "MTCV",
-        name: "Master in Technical Education (Civil Engineering)",
-        shortName: "Master Civil Engineering",
+        name: "Sarjana dalam Pendidikan Teknikal (Kejuruteraan Awam)",
+        shortName: "Sarjana Kejuruteraan Awam",
         faculty: "FPTV",
     },
     {
         id: "MTEE",
-        name: "Master in Technical Education (Electrical Engineering)",
-        shortName: "Master Electrical Engineering",
+        name: "Sarjana dalam Pendidikan Teknikal (Kejuruteraan Elektrik)",
+        shortName: "Sarjana Kejuruteraan Elektrik",
         faculty: "FPTV",
     },
     {
         id: "MTMC",
-        name: "Master in Technical Education (Mechanical Engineering)",
-        shortName: "Master Mechanical Engineering",
+        name: "Sarjana dalam Pendidikan Teknikal (Kejuruteraan Mekanikal)",
+        shortName: "Sarjana Kejuruteraan Mekanikal",
         faculty: "FPTV",
     },
     {
         id: "MIDT",
-        name: "Master in Technical Education (Instructional Design and Technology)",
-        shortName: "Master Instructional Design and Technology",
+        name: "Sarjana dalam Pendidikan Teknikal (Reka Bentuk Pengajaran dan Teknologi)",
+        shortName: "Sarjana Reka Bentuk Pengajaran dan Teknologi",
         faculty: "FPTV",
     },
     {
         id: "MTVEC",
-        name: "Master in Technical and Vocational Education (Coursework)",
-        shortName: "Master Technical and Vocational Education (C)",
+        name: "Sarjana dalam Pendidikan Teknikal dan Vokasional (Kerja Kursus)",
+        shortName: "Sarjana Pendidikan Teknikal dan Vokasional (K)",
         faculty: "FPTV",
     },
     {
         id: "MTVER",
-        name: "Master in Technical and Vocational Education (Research)",
-        shortName: "Master Technical and Vocational Education (R)",
+        name: "Sarjana dalam Pendidikan Teknikal dan Vokasional (Penyelidikan)",
+        shortName: "Sarjana Pendidikan Teknikal dan Vokasional (P)",
         faculty: "FPTV",
     },
     {
         id: "DoE",
-        name: "Doctor of Education",
-        shortName: "Doctor of Education",
+        name: "Doktor Pendidikan",
+        shortName: "Doktor Pendidikan",
         faculty: "FPTV",
     },
     {
         id: "PhED",
-        name: "Doctor of Philosophy in Education",
-        shortName: "Philosophy(Dr.) in Education",
+        name: "Doktor Falsafah dalam Pendidikan",
+        shortName: "Doktor Falsafah dalam Pendidikan",
         faculty: "FPTV",
     },
     {
         id: "PhTVE",
-        name: "Doctor of Philosophy in Technical and Vocational Education",
-        shortName: "Philosophy(Dr.) in Technical and Vocational Education",
+        name: "Doktor Falsafah dalam Pendidikan Teknikal dan Vokasional",
+        shortName: "Doktor Falsafah dalam Pendidikan Teknikal dan Vokasional",
         faculty: "FPTV",
     },
 ];
@@ -157,29 +156,3 @@ export const getProgrammeById = (id: string): Programme | undefined => {
 export const getAllProgrammes = (): Programme[] => {
     return programmes;
 };
-
-
-// Here are all the short names for easy copying:
-// Vocational General Machining
-// Vocational Building Construction
-// Vocational Catering
-// Vocational Welding and Metal Fabrication
-// Vocational Electrical and Electronic
-// Vocational Creative Multimedia
-// Vocational Refrigeration and Air Conditioning
-// Food Service Technology
-// Technology Building Construction
-// Technology Refrigeration and Air Conditioning
-// Technology Industrial Electronic Automation
-// Technology Electrical Maintenance System
-// Technology Welding
-// Technology Industrial Machining
-// Master Civil Engineering
-// Master Electrical Engineering
-// Master Mechanical Engineering
-// Master Instructional Design and Technology
-// Master Technical and Vocational Education (C)
-// Master Technical and Vocational Education (R)
-// Doctor of Education
-// Philosophy(Dr.) in Education
-// Philosophy(Dr.) in Technical and Vocational Education

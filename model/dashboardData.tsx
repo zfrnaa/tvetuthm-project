@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { useTranslation } from "react-i18next";
 import { Building2, BookOpen, User, Shield, GraduationCap } from "lucide-react";
 import { useResults } from "@/hooks/useResults";
 import { usePrograms } from "@/hooks/usePrograms";
-import { generateAreaChartData } from "@/components/generateAreaChartData";
+import { generateAreaChartData } from "@/components/data-display/charts/Generate-Area-Chart";
+import { getCompletedAtDate } from "../src/lib/utils/convertTimestamp";
+import { clusterNameToId } from "./clusterNameToId";
 
 export const useDashboardData = () => {
-    const { t } = useTranslation();
 
     // Fetch data from hooks
     const { data: resultsData, isLoading: resultsLoading } = useResults();
@@ -28,155 +28,161 @@ export const useDashboardData = () => {
         }
         return null;
     }, [evaluatedPrograms]);
-    // const highestRatedProgram =
-    //     programsData && programsData.length > 0
-    //         ? [...evaluatedPrograms].sort(
-    //             (a, b) => Number(b.starRating) - Number(a.starRating)
-    //         )[0]
-    //         : null;
 
-    // Compute monthly assessment totals for the last 6 months
+    // Firebase implementation
     const assessmentChartData = useMemo(() => {
         if (resultsData && Array.isArray(resultsData)) {
             const now = new Date();
             const data = [];
-            // For the last 5 months (adjust if needed)
+            // For the last 5 months
             for (let i = 4; i >= 0; i--) {
                 const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
                 const monthLabel = d.toLocaleString("default", { month: "short" });
                 const count = resultsData.filter((report) => {
-                    const reportDate = new Date(report.completed_at);
+                    // Handle Firebase Timestamp or string date format
+                    const reportDate = getCompletedAtDate(report.completed_at); // Fallback for string
+
                     return reportDate.getMonth() === d.getMonth() && reportDate.getFullYear() === d.getFullYear();
                 }).length;
-                data.push({ month: monthLabel, desktop: count, mobile: count });
+                data.push({ month: monthLabel, User: count });
             }
             return data;
         }
         return generateAreaChartData();
     }, [resultsData]);
 
-    const clusterData = useMemo(() => [
-        {
-            id: "industry-network",
-            name: t("Industry Networking"),
-            icon: Building2,
-            score: 78,
-            color: "bg-yellow-500 dark:bg-cyan-900",
-            description: t("Industry partnerships and collaboration networks"),
-            metrics: [
-                { name: t("Industry Partnerships"), value: 82 },
-                { name: t("Industry Engagement"), value: 75 },
-                { name: t("Collaborative Projects"), value: 68 },
-            ],
-        },
-        {
-            id: "curriculum",
-            name: t("Curriculum Development & Delivery"),
-            icon: BookOpen,
-            score: 85,
-            color: "bg-green-500 dark:bg-cyan-900",
-            description: t("Curriculum design, content and delivery methods"),
-            metrics: [
-                { name: t("Curriculum Relevance"), value: 88 },
-                { name: t("Teaching Methods"), value: 82 },
-                { name: t("Learning Resources"), value: 85 },
-            ],
-        },
-        {
-            id: "instructors",
-            name: t("Quality of TVET Instructors & Resources"),
-            icon: User,
-            score: 72,
-            color: "bg-orange-500 dark:bg-cyan-900",
-            description: t("Instructor qualifications and teaching resources"),
-            metrics: [
-                { name: t("Instructor Qualifications"), value: 75 },
-                { name: t("Professional Development"), value: 68 },
-                { name: t("Teaching Resources"), value: 73 },
-            ],
-        },
-        {
-            id: "accreditation",
-            name: t("Accreditation & Recognition"),
-            icon: Shield,
-            score: 90,
-            color: "bg-purple-500 dark:bg-cyan-900",
-            description: t("Programme accreditation and industry recognition"),
-            metrics: [
-                { name: t("Accreditation Status"), value: 95 },
-                { name: t("Industry Recognition"), value: 88 },
-                { name: t("Quality Assurance"), value: 87 },
-            ],
-        },
-        {
-            id: "employability",
-            name: t("Graduate Employability"),
-            icon: GraduationCap,
-            score: 82,
-            color: "bg-rose-500 dark:bg-cyan-900",
-            description: t("Graduate employment rates and career outcomes"),
-            metrics: [
-                { name: t("Employment Rate"), value: 85 },
-                { name: t("Industry Placement"), value: 78 },
-                { name: t("Career Progression"), value: 83 },
-            ],
-        },
-    ], [t]);
+    const clusterData = useMemo(() => {
+        if (!resultsData || resultsData.length === 0) return [];
 
-    // const recentAssessments = useMemo(() => [
-    //     {
-    //         programme: t("Mechanical Engineering"),
-    //         date: "15 Mar 2025",
-    //         status: t("Completed"),
-    //         score: 87,
-    //     },
-    //     {
-    //         programme: t("Information Technology"),
-    //         date: "12 Mar 2025",
-    //         status: t("Completed"),
-    //         score: 92,
-    //     },
-    //     {
-    //         programme: t("Electrical Engineering"),
-    //         date: "10 Mar 2025",
-    //         status: t("Completed"),
-    //         score: 84,
-    //     },
-    //     {
-    //         programme: t("Civil Engineering"),
-    //         date: "05 Mar 2025",
-    //         status: t("Completed"),
-    //         score: 79,
-    //     },
-    //     {
-    //         programme: t("Automotive Technology"),
-    //         date: "28 Feb 2025",
-    //         status: t("Completed"),
-    //         score: 81,
-    //     },
-    // ], [t]);
+        //get the latest result from resultsData
+        const latestResult = [...resultsData].sort((a, b) => new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime())[0];
+
+        // take the clusterScores from latestresultsData
+        const rawClusterScores = (latestResult?.clusterScores || {}) as Record<string, [number, number]>;
+
+        // Predefined cluster names, icons, and colors
+        const predefinedClusters = [
+            {
+                id: "industry-network",
+                name: "Jaringan Industri",
+                icon: Building2,
+                color: "bg-slate-700 dark:bg-cyan-900",
+                description: "Perkongsian industri dan rangkaian kerjasama",
+                metrics: [
+                    { name: "Perkongsian Industri"},
+                    { name: "Penglibatan Industri" },
+                    { name: "Projek Kerjasama" },
+                ],
+            },
+            {
+                id: "curriculum",
+                name: "Pembangunan & Penyampaian Kurikulum",
+                icon: BookOpen,
+                color: "bg-indigo-600 dark:bg-cyan-900",
+                description: "Reka bentuk kurikulum, kandungan dan kaedah penyampaian",
+                metrics: [
+                    { name: "Perkaitan Kurikulum" },
+                    { name: "Kaedah Pengajaran" },
+                    { name: "Sumber Pembelajaran" },
+                ],
+            },
+            {
+                id: "instructors",
+                name: "Kualiti Pengajar dan Sumber TVET",
+                icon: User,
+                color: "bg-purple-700 dark:bg-cyan-900",
+                description: "Kelayakan pengajar dan sumber pengajaran",
+                metrics: [
+                    { name: "Kelayakan Pengajar" },
+                    { name: "Pembangunan Profesional" },
+                    { name: "Sumber Pengajaran" },
+                ],
+            },
+            {
+                id: "accreditation",
+                name: "Akreditasi dan Pengiktirafan",
+                icon: Shield,
+                color: "bg-rose-600 dark:bg-cyan-900",
+                description: "Akreditasi program dan pengiktirafan industri",
+                metrics: [
+                    { name: "Status Akreditasi" },
+                    { name: "Pengiktirafan Industri" },
+                    { name: "Jaminan Kualiti" },
+                ],
+            },
+            {
+                id: "employability",
+                name: "Kebolehpasaran Graduan",
+                icon: GraduationCap,
+                color: "bg-pink-600 dark:bg-cyan-900",
+                description: "Kadar pekerjaan siswazah dan hasil kerjaya",
+                metrics: [
+                    { name: "Kadar Pekerjaan" },
+                    { name: "Penempatan Industri" },
+                    { name: "Kemajuan Kerjaya" },
+                ],
+            },
+        ];
+
+        return predefinedClusters.map((cluster) => {
+            // Find the Firebase key that maps to this cluster.id
+            const firebaseKey = Object.keys(clusterNameToId).find(
+                (key) => clusterNameToId[key] === cluster.id
+            );
+            const scoreArr = firebaseKey ? rawClusterScores[firebaseKey] : undefined;
+            if (Array.isArray(scoreArr) && scoreArr.length === 2) {
+                const [actualScore, fullScore] = scoreArr;
+                const percentage = (Number(actualScore) / Number(fullScore)) * 100;
+                return {
+                    ...cluster,
+                    score: Math.round(percentage),
+                    metrics: cluster.metrics.map((metric, index) => ({
+                        ...metric,
+                        value: Math.round(percentage) === 100
+                            ? 100
+                            : Math.round(percentage * (1 - index * 0.1)),
+                    })),
+                };
+            }
+            // Default to 0 if not found
+            return {
+                ...cluster,
+                score: 0,
+                metrics: cluster.metrics.map((metric) => ({
+                    ...metric,
+                    value: 0,
+                })),
+            };
+        });
+    }, [resultsData]);
+
     // Dynamic recent assessments
     const recentAssessments = useMemo(() => {
-        if (!resultsData) return [];
-        return resultsData.map((result) => ({
-            programme: programsData?.find((program) => program.programId === result.programId)?.programName || t("Unknown Program"),
-            date: new Date(result.completed_at).toLocaleDateString(),
-            status: t("Completed"),
-            score: result.totalScore || 0,
-        }));
-    }, [resultsData, programsData, t]);
+        if (!resultsData || !programsData) return [];
+        return resultsData.map((result) => {
+            const matchedProgram = programsData.find(
+                (program) => program.programId === result.programId
+            );
+            return {
+                programs: matchedProgram?.programName || "Program Tidak Diketahui",
+                date: getCompletedAtDate(result.completed_at).toLocaleDateString(),
+                status: "Selesai",
+                score: result.totalScore || 0,
+            };
+        });
+    }, [resultsData, programsData]);
 
     const recentAssessmentColumns: ColumnDef<typeof recentAssessments[number]>[] = useMemo(() => [
         {
-            header: t("Programme"),
-            accessorKey: "programme",
+            header: "Program",
+            accessorKey: "programs",
         },
         {
-            header: t("Date"),
+            header: "Tarikh",
             accessorKey: "date",
         },
         {
-            header: t("Status"),
+            header: "Status",
             accessorKey: "status",
             cell: info => (
                 <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
@@ -185,13 +191,13 @@ export const useDashboardData = () => {
             ),
         },
         {
-            header: t("Score"),
+            header: "Skor",
             accessorKey: "score",
             cell: info => (
-                <span className="font-medium">{info.getValue<number>()}%</span>
+                <span className="font-medium">{info.getValue<number>()}</span>
             ),
         },
-    ], [t]);
+    ], []);
 
     return {
         clusterData,

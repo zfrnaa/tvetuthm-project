@@ -1,20 +1,15 @@
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useTheme } from "./lib/contexts/ThemeTypeContext.tsx";
-import { FooterWithSocialLinks } from "./components/ui/footer.tsx";
-import { SidebarMain } from "./components/ui/SidebarMain.tsx";
-import { SidebarProvider, SidebarTrigger, useSidebar } from "./components/ui/sidebar.tsx";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import AvatarDropdown from "./components/AvatarDropdown.tsx";
-import ThemeToggle from "./components/ui/ThemeToggle.tsx";
-import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
-import Flag from "react-world-flags";
-import { useTranslation } from "react-i18next";
+import { FooterWithSocialLinks } from "./components/layout/footer.tsx";
+import { SidebarMain } from "./components/layout/SidebarMain.tsx";
+import { SidebarProvider, SidebarTrigger, useSidebar } from "./components/layout/sidebar.tsx";
+import AvatarDropdown from "./components/ui/navigation/AvatarDropdown.tsx";
+import { useEffect } from "react";
 import NotFound from "./pages/+not-found.tsx";
 import { useAuth } from "@clerk/clerk-react";
 import { lazy, Suspense } from 'react';
-import { UserPage } from "./pages/UserP.tsx";
-import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
+import { ErrorBoundary } from "./components/ui/special/ErrorBoundary.tsx";
+import { ManageData } from "./pages/ManageData.tsx";
 
 // Lazy load components
 const Dashboard = lazy(() => import("./pages/dashboard.tsx"));
@@ -40,38 +35,13 @@ function MainLayout() {
   const { gradientColors } = useTheme();
   const location = useLocation();
   const hideHeader = location.pathname === "/auth/login";
-  const { i18n } = useTranslation();
-  const [selectedLang, setSelectedLang] = useState(i18n.language);
-  const [langChecked, setLangChecked] = useState(false);
   const { isSignedIn } = useAuth();
   const { state } = useSidebar(); // ✅ Now inside SidebarProvider, so no error
-
-  // Set the default language before rendering content
-  useEffect(() => {
-    const storedLanguage = localStorage.getItem("preferredLanguage");
-    if (!storedLanguage) {
-      i18n.changeLanguage("ms");
-      localStorage.setItem("preferredLanguage", "ms");
-      setSelectedLang("ms");
-    }
-    setLangChecked(true);
-  }, [i18n]);
 
   useEffect(() => {
     // Scroll to the top of the page smoothly on route change
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
-
-  // Render nothing (or a fallback) until the language has been set
-  if (!langChecked) {
-    return null; // or <LoadingFallback />
-  }
-
-  const changeLanguage = (lang: string) => {
-    setSelectedLang(lang);
-    i18n.changeLanguage(lang);
-    localStorage.setItem("preferredLanguage", lang);
-  };
 
   return (
     <div className="relative h-screen w-screen overflow-auto">
@@ -93,40 +63,7 @@ function MainLayout() {
               <header className="w-full sticky top-0 z-20 flex items-center gap-4 border-b bg-background dark:bg-sidebar px-6 py-2 justify-between">
                 <SidebarTrigger />
                 <div className="flex items-center gap-2 md:ml-auto">
-                  <ThemeToggle />
-                  <Menu as="div" className="relative">
-                    <MenuButton className="flex items-center gap-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-md">
-                      <Flag code={selectedLang === "ms" ? "MY" : "GB"} className="w-5 h-3" />
-                      <span>{selectedLang.toUpperCase()}</span>
-                      <ChevronDown size={16} />
-                    </MenuButton>
-                    <MenuItems className="absolute top-full right-0 mt-2 bg-white dark:bg-gray-800 p-2 rounded-md shadow-lg w-24">
-                      <MenuItem>
-                        {({ focus }) => (
-                          <button
-                            className={`flex items-center gap-2 px-4 py-2 w-full ${focus ? "bg-gray-200 dark:bg-gray-700" : ""
-                              }`}
-                            onClick={() => changeLanguage("ms")}
-                          >
-                            <Flag code="MY" className="w-6 h-4" />
-                            <span>MS</span>
-                          </button>
-                        )}
-                      </MenuItem>
-                      <MenuItem>
-                        {({ focus }) => (
-                          <button
-                            className={`flex items-center gap-2 px-4 py-2 w-full ${focus ? "bg-gray-200 dark:bg-gray-700" : ""
-                              }`}
-                            onClick={() => changeLanguage("en")}
-                          >
-                            <Flag code="GB" className="w-6 h-4" />
-                            <span>EN</span>
-                          </button>
-                        )}
-                      </MenuItem>
-                    </MenuItems>
-                  </Menu>
+
                   <AvatarDropdown />
                 </div>
               </header>
@@ -147,9 +84,9 @@ function MainLayout() {
                     <Laporan />
                   </ErrorBoundary>
                 } />
-                <Route path="/users" element={
+                <Route path="/manageData" element={
                   <ErrorBoundary fallback={<NotFound />}>
-                    <UserPage />
+                    <ManageData />
                   </ErrorBoundary>
                 } />
                 <Route path="*" element={<NotFound />} />
@@ -164,8 +101,8 @@ function MainLayout() {
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Navigate replace to="/auth/login" />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/auth/login/*" element={<Login />} />
+            <Route path="*" element={<Navigate replace to="/auth/login" />} />
           </Routes>
         </Suspense>
       )}

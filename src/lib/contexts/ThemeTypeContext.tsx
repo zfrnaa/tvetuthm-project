@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
 export type ThemeContextType = {
-    isDarkMode: boolean;
-    toggleTheme: () => void;
+    // isDarkMode: boolean;
+    // toggleTheme: () => void;
     gradientColors: [string, string];
 };
 

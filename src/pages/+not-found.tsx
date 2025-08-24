@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Error404Icon from "../assets/images/error404_svg.svg";
-import i18next, { t } from "i18next";
 
 const NotFound = () => {
     const navigate = useNavigate();
@@ -28,8 +27,7 @@ const NotFound = () => {
             <img src={Error404Icon} alt="404 Error" style={{ width: 500, height: 500 }} />
             <div className="bg-black rounded-full px-4 py-2">
                 <p className="text-white">
-                    {t("Redirecting to Home in")} {seconds} {t("second")}
-                    {i18next.language === "en" && seconds !== 1 ? "s" : ""}...
+                    Mengalihkan ke Laman Utama dalam {seconds} saat...
                 </p>
             </div>
         </div>
