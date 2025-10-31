@@ -34,5 +34,8 @@ services/
 
 # typescript
 *.tsbuildinfo
-
 app-example
+
+#extras
+pre-commit-hook.sh
+SECURITY_FIX_GUIDE.md
