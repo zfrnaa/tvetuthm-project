@@ -54,27 +54,23 @@ The system evaluates programs across five key dimensions:
 ### Installation
 
 1. Clone the repository:
-\`\`\`bash
+```bash
 git clone https://github.com/zfrnaa/tvetuthm-project.git
 cd tvetuthm-repack-project
-\`\`\`
+```
 
 2. Install dependencies:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 3. Set up environment variables:
 
 **⚠️ IMPORTANT: Never commit your .env file to git!**
 
-Copy the example file and add your credentials:
-\`\`\`bash
-cp .env.example .env
-\`\`\`
+Create your env file that consists of your credentials:
 
-Then edit \`.env\` with your actual credentials:
-\`\`\`env
+```env
 # Firebase Configuration
 VITE_FIREBASE_API_KEY=your_firebase_api_key_here
 VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
@@ -86,44 +82,60 @@ VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 
 # Clerk Authentication
 VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
-\`\`\`
+```
 
 4. Run the development server:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 5. (Optional) Run with backend server:
-\`\`\`bash
+```bash
 npm run dev:all
-\`\`\`
+```
 
 ### Build for Production
-\`\`\`bash
+```bash
 npm run build
 npm run preview
-\`\`\`
+```
 
 ## 📁 Project Structure
 
-\`\`\`
-src/
-├── assets/          # Static assets (images, fonts)
-├── auth/            # Authentication logic and server
-├── components/      # Reusable UI components
-│   ├── data-display/    # Tables and charts
-│   ├── features/        # Feature-specific components
-│   ├── layout/          # Layout components (sidebar, footer)
-│   ├── programs/        # Program management components
-│   └── ui/             # UI primitives
-├── hooks/           # Custom React hooks
-├── lib/             # Utilities and contexts
-│   ├── contexts/        # React contexts
-│   └── utils/          # Helper functions
-├── pages/           # Page components
-├── styles/          # Global styles
-└── types/           # TypeScript type definitions
-\`\`\`
+```
+┣ 📦constants
+┣ 📦model
+┣ 📦public
+┣ 📦src
+  ┣ 📂assets
+  ┃ ┣ 📂fonts
+  ┃ ┃ ┣ 📂GeistMono
+  ┃ ┃ ┣ 📂GeistSans
+  ┃ ┣ 📂images
+  ┣ 📂auth
+  ┃ ┣ 📂services
+  ┃ ┣ 📂components
+  ┃ ┃ ┣ 📂data-display
+  ┃ ┃ ┃ ┣ 📂charts
+    ┃ ┣ 📂features
+      ┣ 📂layout
+     ┃  ┣ 📂programs
+     ┃  ┗ 📂ui
+     ┃ ┃ ┣ 📂cards
+     ┃ ┃ ┣ 📂data-display
+     ┃ ┃ ┣ 📂dialogs
+     ┃ ┃ ┣ 📂feedback
+     ┃ ┃ ┣ 📂forms
+     ┃ ┃ ┣ 📂navigation
+     ┃ ┃ ┣ 📂special
+     ┣ 📂hooks
+     ┣ 📂lib
+     ┃ ┣ 📂contexts
+     ┃ ┣ 📂utils
+     ┣ 📂pages
+     ┣ 📂styles
+     ┣ 📂types
+```
 
 ## 📊 Key Features Breakdown
 
@@ -147,13 +159,13 @@ src/
 
 ## 🧪 Available Scripts
 
-- \`npm run dev\` - Start development server
-- \`npm run build\` - Build for production
-- \`npm run preview\` - Preview production build
-- \`npm run lint\` - Run ESLint
-- \`npm run type-check\` - Run TypeScript type checking
-- \`npm run backend\` - Run backend server with nodemon
-- \`npm run dev:all\` - Run both frontend and backend concurrently
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+- `npm run backend` - Run backend server with nodemon
+- `npm run dev:all` - Run both frontend and backend concurrently
 
 ## 🔒 Security Best Practices
 
@@ -168,19 +180,19 @@ src/
 Contributions are welcome! Please follow these guidelines:
 
 1. Fork the repository
-2. Create a feature branch (\`git checkout -b feature/AmazingFeature\`)
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
 3. **Never commit sensitive data** - Double-check before committing
-4. Commit your changes (\`git commit -m 'Add some AmazingFeature'\`)
-5. Push to the branch (\`git push origin feature/AmazingFeature\`)
+4. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+5. Push to the branch (`git push origin feature/AmazingFeature`)
 6. Open a Pull Request
 
 ## 📄 License
 
-This project is part of UTHM's educational technology initiative.
+This project is part of UTHM's educational initiative.
 
 ## 👥 Support
 
-For support and inquiries, please contact the UTHM TVET Assessment team.
+For support and inquiries, please contact the me @zfrnaa.
 
 ---
 
